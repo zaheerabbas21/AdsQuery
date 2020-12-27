@@ -38,6 +38,8 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+APP_NAME = 'AdsQuery'
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -134,3 +136,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+LOGOUT_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/'
