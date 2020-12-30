@@ -3,6 +3,7 @@ from django.core.validators import MinLengthValidator
 from django.contrib.auth.models import User
 from django.conf import settings
 
+
 class Category(models.Model):
     HOUSE = 'H'
     JOB = 'J'

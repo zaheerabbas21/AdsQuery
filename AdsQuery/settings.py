@@ -15,7 +15,6 @@ import os
 import dotenv  # <- New
 
 
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -38,12 +37,13 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
-APP_NAME = 'AdsQuery'
+APP_NAME = 'AdQuery'
 
 # Application definition
 
 INSTALLED_APPS = [
     'Ads.apps.AdsConfig',
+    'home.apps.HomeConfig',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -51,7 +51,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
+
+    'django_extensions',
+    'materialize',
+    'crispy_forms',
+    'crispy_forms_materialize',
+    'rest_framework',
+    'social_django',
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -61,6 +72,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware',   # Add
 ]
 
 ROOT_URLCONF = 'AdsQuery.urls'
@@ -76,6 +88,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'home.context_processors.settings',      # Add
+                'social_django.context_processors.backends',  # Add
+                'social_django.context_processors.login_redirect',  # Add
             ],
         },
     },
@@ -136,6 +151,28 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+
+# Configure the social login
+try:
+    from . import github_settings
+    SOCIAL_AUTH_GITHUB_KEY = github_settings.SOCIAL_AUTH_GITHUB_KEY
+    SOCIAL_AUTH_GITHUB_SECRET = github_settings.SOCIAL_AUTH_GITHUB_SECRET
+except:
+    print('When you want to use social login, please see mysite/github_settings-dist.py')
+
+
+# https://python-social-auth.readthedocs.io/en/latest/configuration/django.html#authentication-backends
+# https://simpleisbetterthancomplex.com/tutorial/2016/10/24/how-to-add-social-login-to-django.html
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.github.GithubOAuth2',
+    # 'social_core.backends.twitter.TwitterOAuth',
+    # 'social_core.backends.facebook.FacebookOAuth2',
+
+    'django.contrib.auth.backends.ModelBackend',
+)
+
 
 
 LOGOUT_REDIRECT_URL = '/'

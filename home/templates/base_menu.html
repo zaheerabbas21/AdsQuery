@@ -1,0 +1,108 @@
+{% extends "base_bootstrap.html" %}
+{% block navbar %}
+{% load app_tags %}
+<div class="navbar-fixed black-text">
+    <nav class="navbar-wrapper white black-text">
+        <div class="container">
+            <a  href="/"
+                style="margin-left: 20px;" 
+                class="brand-logo">
+                {{ settings.APP_NAME }}
+            </a>
+            <a  href="/" 
+                data-target="mobile-demo" 
+                class="sidenav-trigger">
+                <i class="material-icons black-text">menu</i>
+            </a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <div class="row center hide">
+                    <form autocomplete="off">
+                        <div class="input-field col s8 m8 l8">
+                            <i class="material-icons black-text prefix">search</i>
+                            <input type="text" name="search" style="border-bottom: 1px solid black;" id="search" class="black-text" 
+                            {%if search %} value="{{ search }}" {% endif %}>
+                            <label class="black-text" for="search">Search</label>
+                        </div>
+                        <div>
+                            <button class="btn-large left grey center col s3 m3 l3 white-text"
+                                style="border:none; background: none; padding: 0; cursor: pointer;" type="submit">
+                               Search
+                            </button>
+                        </div> 
+                    </form>
+                </div>
+                {% url 'Ads' as Ads %}
+                <li {% if request.get_full_path == Ads %}class="active" {% endif %}>
+                    <a href="{% url 'Ads:all' %}">Ads</a>
+                </li>
+                {% if user.is_authenticated %}
+                <li>
+                    <a href="{% url 'Ads:ad_create' %}">Create Ad</a>
+                </li>
+                <li>
+                    <a  href="#"
+                        data-target="dropdown1" 
+                        class="dropdown-trigger">
+                        <img class="responsive-img circle" style="width:30px" src="{{ user|gravatar:60 }}" />
+                        <i class="material-icons right">arrow_drop_down</i>
+                    </a>
+                    <ul  
+                        id='dropdown1' 
+                        class='dropdown-content'>
+                        <li class="disabled"></li>
+                        <li>
+                            <a 
+                            href="{% url 'logout' %}?next={% url 'Ads:all' %}" 
+                            class="black-text">
+                            Logout
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                {% else %}
+                <li>
+                    <a href="{% url 'login' %}?next={% url 'Ads:all' %}">Login</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+</div>
+<ul class="sidenav" id="mobile-demo">
+    {% url 'Ads' as Ads %}
+    <li {% if request.get_full_path == Ads %}class="active" {% endif %}>
+        <a href="{% url 'Ads:all' %}">Ads</a>
+    </li>
+    {% if user.is_authenticated %}
+    <li>
+        <a href="{% url 'Ads:ad_create' %}">Create Ad</a>
+    </li>
+    <li>
+        <a  href="#" 
+            data-target="dropdown2" 
+            class="dropdown-trigger">
+            <img class="responsive-img circle" style="width:30px" src="{{ user|gravatar:60 }}" />
+            <i class="material-icons right">arrow_drop_down</i>
+        </a>
+        <ul 
+            id='dropdown2' 
+            class='dropdown-content'>
+            <li class="disabled"></li>
+            <li>
+                <a  href="{% url 'logout' %}?next={% url 'Ads:all' %}"
+                    class="black-text">
+                    Logout
+                </a>
+            </li>
+        </ul>
+    </li>
+    {% else %}
+    <li>
+        <a href="{% url 'login' %}?next={% url 'Ads:all' %}">Login</a>
+    </li>
+    {% endif %}
+</ul>
+
+{% endblock %}
+
+<!-- https://stackoverflow.com/questions/22047251/django-dynamically-get-view-url-and-check-if-its-the-current-page -->
