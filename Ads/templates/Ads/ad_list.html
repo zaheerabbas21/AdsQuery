@@ -40,12 +40,12 @@
         <li>
             <div class="col s12 m12 l6">
                 <div class="card">
-                    <div  class="card-image responsive-img">
+                    <!-- <div  class="card-image responsive-img">
                         <img style="max-height: 50%;"src="{% url 'Ads:ad_picture' ad.id %}" alt="{{ ad.title }}"/>
                         <div class="center" style="margin:15px 10px 0 10px">
-                            {% if user.is_authenticated %}
+                            {% if user.is_authenticated %} -->
                             <!-- Remove from Favorites -->
-                            <a  href="#" class="halfway-fab btn-floating red btn-small z-depth-2"
+                            <!-- <a  href="#" class="halfway-fab btn-floating red btn-small z-depth-2"
                                 onclick="favPost('{% url   'Ads:ad_unfavorite'   ad.id %}', {{ ad.id }} );return false;" 
                                 {% if ad.id not in favorites %} 
                                     style="display: none;" 
@@ -54,9 +54,9 @@
                                 <i class="material-icons white-text">
                                     favorite
                                 </i>
-                            </a>
+                            </a> -->
                             <!-- Add to Favorites -->
-                            <a  href="#" class="halfway-fab btn-floating red btn-small z-depth-2"
+                            <!-- <a  href="#" class="halfway-fab btn-floating red btn-small z-depth-2"
                                 onclick="favPost('{% url     'Ads:ad_favorite'   ad.id %}', {{ ad.id }} );return false;" 
                                 {% if ad.id in favorites %} 
                                     style="display: none;" 
@@ -68,13 +68,19 @@
                             </a>
                             {% endif%}
                         </div>
-                    </div>
+                    </div> -->
                     <div class="card-content">
                         <a href="{% url 'Ads:ad_detail'  ad.id %}">
                             <span class="card-title">{{ ad.title }}</span>
                         </a>
                         <p style="margin:10px 0px">
                             {{ ad.text|truncatewords:20 }}
+                        </p>
+                        <p class="center-align" style="margin-bottom: 10px;">
+                            <a  href="#"
+                                class="btn-small disabled red-text">
+                                Category: {{ ad.category.get_name_display }}
+                            </a>
                         </p>
                         <div class="card-action">
                         {% if ad.owner == user %}
@@ -137,9 +143,11 @@
     </ul>
 </div>
 {% else %}
-<h4 style="text-align: center;color: rgb(59, 57, 57)">
-    There are no articles in the database.
-</h4>
+<div>
+    <h4 style="text-align: center;color: rgb(59, 57, 57)">
+        There are no articles in the database.
+    </h4>
+<div>
 {% endif %}
 <div class="row">
     <a  href="{% url 'Ads:ad_create' %}"
