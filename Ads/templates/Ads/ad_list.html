@@ -40,9 +40,35 @@
         <li>
             <div class="col s12 m12 l6">
                 <div class="card">
-                    <!-- <div class="card-image">
-                        <img src="{% url 'Ads:ad_picture' ad.id %}" alt="{{ ad.title }}"/>
-                    </div> -->
+                    <div  class="card-image responsive-img">
+                        <img style="max-height: 50%;"src="{% url 'Ads:ad_picture' ad.id %}" alt="{{ ad.title }}"/>
+                        <div class="center" style="margin:15px 10px 0 10px">
+                            {% if user.is_authenticated %}
+                            <!-- Remove from Favorites -->
+                            <a  href="#" class="halfway-fab btn-floating red btn-small z-depth-2"
+                                onclick="favPost('{% url   'Ads:ad_unfavorite'   ad.id %}', {{ ad.id }} );return false;" 
+                                {% if ad.id not in favorites %} 
+                                    style="display: none;" 
+                                    {% endif %} 
+                                    id="favorite_star_{{ad.id}}">
+                                <i class="material-icons white-text">
+                                    favorite
+                                </i>
+                            </a>
+                            <!-- Add to Favorites -->
+                            <a  href="#" class="halfway-fab btn-floating red btn-small z-depth-2"
+                                onclick="favPost('{% url     'Ads:ad_favorite'   ad.id %}', {{ ad.id }} );return false;" 
+                                {% if ad.id in favorites %} 
+                                    style="display: none;" 
+                                {% endif %} 
+                                id="unfavorite_star_{{ad.id}}">
+                                <i class="material-icons white-text">
+                                    favorite_border
+                                </i>
+                            </a>
+                            {% endif%}
+                        </div>
+                    </div>
                     <div class="card-content">
                         <a href="{% url 'Ads:ad_detail'  ad.id %}">
                             <span class="card-title">{{ ad.title }}</span>
