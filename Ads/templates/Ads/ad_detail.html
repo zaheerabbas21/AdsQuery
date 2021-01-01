@@ -23,12 +23,12 @@
 <div class="center-align">
     {% if ad.owner == user %}
     <a  href="{% url 'Ads:ad_update' ad.id %}" 
-        class="btn-floating orange">
+        class="btn-floating orange tooltipped" data-position="top" data-tooltip="Edit">
         <i class="material-icons right">edit</i>
     </a>
     <span style="margin: 0 15px;">Updated {{ ad.updated_at|naturaltime }}</span>
     <a  href="{% url 'Ads:ad_delete' ad.id %}" 
-        class=" btn-floating red">
+        class=" btn-floating red tooltipped" data-position="top" data-tooltip="Delete">
         <i class="material-icons left">delete</i>
     </a>
     {% else %}
@@ -47,9 +47,10 @@
 <!-- Divider Line -->
 <div class="divider custom-margin"></div>
 
-<!-- Ad's Image -->
+<!-- Description and Image of Ad -->
 <div class="custom-margin">
     {% if ad.content_type %}
+    <!-- Ad's Image -->
         <img 
             src="{% url 'Ads:ad_picture' ad.id %}"
             class="responsive-img z-depth-2 materialboxed custom-margin"
@@ -89,19 +90,43 @@
     </div>
 </div>
 
+<!-- Comment Area -->
+<div>
+    {% if user.is_authenticated %}
+    <div>
+        {% load crispy_forms_tags %}
+        <form   method="post" 
+                action="{% url 'Ads:ad_comment_create' ad.id %}" 
+                autocomplete="off">
+            {% csrf_token %}
+            {{ comment_form|crispy }}
+            <div class="row">
+                <div class="col s12 m12 l6">
+                    <button 
+                            class="btn left grey darken-3 white-text col s12 m12 l12 waves-effect waves-light"
+                            style="border:none; background: none; cursor: pointer;" type="submit" value="All Ads"
+                            onclick="window.location.href='{% url 'Ads:all' %}';return false;">
+                            <i class="material-icons left">home</i>
+                            Home
+                    </button>
+                </div>
+                <div class="col s12 m12 l6">
+                    <button 
+                            class="btn left grey darken-3 white-text col 
+                            s12 m12 l12 waves-effect waves-light"
+                            style="border:none; background: none; cursor: pointer;" 
+                            type="submit" value="Submit">
+                            Comment
+                            <i class="material-icons right">send</i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    {% endif %}
+</div>
 
-{% if user.is_authenticated %}
-<p>
-    {% load crispy_forms_tags %}
-<form method="post" action="{% url 'Ads:ad_comment_create' ad.id %}" autocomplete="off">
-    {% csrf_token %}
-    {{ comment_form|crispy }}
-    <input type="submit" value="Submit">
-    <input type="submit" value="All Ads" onclick="window.location.href='{% url 'Ads:all' %}';return false;">
-</form>
-</p>
-{% endif %}
-
+<div>
 {% for comment in comments %}
 <p> {{ comment.text }}
     ({{ comment.updated_at|naturaltime }})
@@ -110,5 +135,5 @@
     {% endif %}
 </p>
 {% endfor %}
-
+</div>
 {% endblock %}
