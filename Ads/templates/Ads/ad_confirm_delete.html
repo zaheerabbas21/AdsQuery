@@ -1,11 +1,55 @@
 {% extends "base_menu.html" %}
+
+{% block head %}
+<style>
+    .custom-div{
+        margin: 25%;
+    }
+</style>
+{% endblock %}
+
 {% block content %}
-<h1>Delete Ad</h1>
 
-<p>Are you sure you want to delete the ad: {{ ad }}?</p>
+<div class="container">
+    <h1 class="center custom-margin">
+        Delete Ad
+    </h1>
+    
+    <div class="center custom-margin">
+        <h6>Are you sure you want to delete the ad: {{ ad }}?</h6>
+    </div>
+    
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col s12 m12 l6">
+                <button 
+                    type="submit" 
+                    class="btn left red white-text col s12 m12 l12 waves-effect waves-light tooltipped" 
+                    data-position="top" 
+                    data-tooltip="Delete"
+                    style="border:none; background: none; cursor: pointer;"
+                    value="Yes, delete.">
+                    Yes
+                    <i class="material-icons right">delete</i>
+                </button>
+            </div>
+            <div class="col s12 m12 l6">
+                <button 
+                        class="btn left grey darken-3 white-text col s12 
+                        m12 l12 waves-effect waves-light tooltipped" 
+                        data-position="top" 
+                        data-tooltip="Cancel"
+                        style="border:none; background: none; cursor: pointer;" type="submit" value="All Ads"
+                        onclick="window.location.href='{% url     'Ads:ad_detail' ad.id %}';return false;">
+                        Cancel
+                        <i class="material-icons left">cancel</i>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
 
-<form action="" method="POST">
-    {% csrf_token %}
-    <input type="submit" value="Yes, delete.">
-</form>
+<div class="custom-div"></div>
+
 {% endblock %}

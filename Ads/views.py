@@ -1,4 +1,4 @@
-from Ads.models import Ad, Comment, Fav
+from Ads.models import Ad, Comment, Fav, Category
 from Ads.owner import OwnerListView, OwnerDetailView, OwnerDeleteView
 from django.views import View
 from django.shortcuts import render, redirect, get_object_or_404

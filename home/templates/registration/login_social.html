@@ -1,36 +1,59 @@
-{% extends "base_bootstrap.html" %}
+{% extends "base_menu.html" %}
+
+{% load static %}
 
 {% block content %}
 
 {% if form.errors %}
-<p>Your username and password didn't match. Please try again.</p>
+<h5 class="center custom-margin">
+    Your username and password didn't match. Please try again.
+</h5>
 {% endif %}
 
 {% if next %}
-{% if user.is_authenticated %}
-<p>Your account doesn't have access to this page. To proceed,
-    please login with an account that has access.</p>
-{% else %}
-<p>Please login to see this site.</p>
-{% endif %}
+    {% if user.is_authenticated %}
+    <h5 class="center custom-margin">
+        Your account doesn't have access to this page. To proceed,
+        please login with an account that has access.
+    </h5>
+    {% else %}
+    <h5 class="center custom-margin">
+        Please login to Create an Ad on this site.
+    </h5>
+    {% endif %}
 {% endif %}
 
 {% load crispy_forms_tags %}
+<div class="container">
 
-<form method="post" action="{% url 'login' %}">
-    {% csrf_token %}
-    {{ form|crispy }}
-    <input type="submit" class="btn" value="Login Locally" />
-    <input type="hidden" name="next" value="{{ next }}" />
-</form>
+    {% if settings.SOCIAL_AUTH_GITHUB_KEY %}
+    <div class="center custom-margin">
+        <a class="btn-large blue lighten-2" href="{% url 'social:begin' 'github' %}?next={{ next }}">
+            <i class="fa fa-github left" aria-hidden="true"></i>
+            Login with GitHub
+        </a>
+        {% endif %}
+    </div>
+    
+    <div class="divider custom-margin"></div>
 
-{% if settings.SOCIAL_AUTH_GITHUB_KEY %}
-<hr />
-<a class="btn" role="button" href="{% url 'social:begin' 'github' %}?next={{ next }}">
-    <i class="fa fa-github" aria-hidden="true"></i>
-    Login with GitHub</a>
-{% endif %}
+    <h5 class="center custom-margin">
+        Login using this if you are a member of this project
+    </h5>
 
-<!-- ROOT_URLCONF {{ settings.ROOT_URLCONF }} -->
+    <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <div class="center">
+            <button 
+                type="submit" 
+                class="btn-large grey darken-3 custom-margin" 
+                value="Login Locally">
+                Login Locally
+            </button>
+            <input type="hidden" name="next" value="{{ next }}" />
+        </div>
+    </form>
+</div>
 
 {% endblock %}

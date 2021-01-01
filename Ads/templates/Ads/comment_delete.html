@@ -1,13 +1,49 @@
-{% extends "base_bootstrap.html" %}
+{% extends "base_menu.html" %}
+
+{% block head %}
+<style>
+    .custom-div {
+        margin: 25%;
+    }
+</style>
+{% endblock %}
+
 {% block content %}
-<h1>Delete Comment</h1>
 
-<p>Are you sure you want to delete</p>
-<p>{{ comment.text }}?</p>
+<div class="container">
+    <h1 class="center custom-margin">
+        Delete Comment
+    </h1>
 
-<form action="" method="POST">
-    {% csrf_token %}
-    <input type="submit" class="btn btn-primary" value="Yes, delete.">
-    <a href="{% url 'Ads:ad_detail' comment.ad.id %}" class="btn btn-secondary">Cancel</a>
-</form>
+    <div class="center custom-margin">
+        <h6>Are you sure you want to delete the Comment:</h6> 
+        <p>{{ comment.text }}?</p>
+    </div>
+
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col s12 m12 l6">
+                <button type="submit"
+                    class="btn left red white-text col s12 m12 l12 waves-effect waves-light tooltipped"
+                    data-position="top" data-tooltip="Delete" style="border:none; background: none; cursor: pointer;"
+                    value="Yes, delete.">
+                    Yes
+                    <i class="material-icons right">delete</i>
+                </button>
+            </div>
+            <div class="col s12 m12 l6">
+                <button class="btn left grey darken-3 white-text col s12 
+                        m12 l12 waves-effect waves-light tooltipped" data-position="top" data-tooltip="Cancel"
+                    style="border:none; background: none; cursor: pointer;" type="submit" value="All Ads"
+                    onclick="window.location.href='{% url         'Ads:ad_detail' comment.ad.id %}';return false;">
+                    Cancel
+                    <i class="material-icons left">cancel</i>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="custom-div"></div>
 {% endblock %}

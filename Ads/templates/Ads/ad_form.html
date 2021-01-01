@@ -1,25 +1,50 @@
 {% extends "base_menu.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-<p>
-<form action="" method="post" id="upload_form" enctype="multipart/form-data" autocomplete="off">
-    {% csrf_token %}
-    {{ form|crispy }}
-    <input type="submit" value="Submit">
-    <input type="submit" value="Cancel" onclick="window.location.href='{% url 'Ads:all' %}';return false;">
-</form>
-</p>
+<div class="custom-margin">
+    <form action="" method="post" id="upload_form" enctype="multipart/form-data" autocomplete="off">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <div class="row">
+            <div class="col s12 m12 l6">
+                <button 
+                    type="submit" 
+                    value="Submit" 
+                    class="btn-large left grey darken-3 col s12 m12 l12 waves-effect waves-light tooltipped" 
+                    data-position="top" 
+                    data-tooltip="Post Ad"
+                    style="border:none; background: none; cursor:pointer;">
+                    Post Ad
+                    <i class="material-icons right">send</i>
+                </button>
+            </div>
+            <div class="col s12 m12 l6">
+                <button 
+                    type="submit" 
+                    value="Cancel" 
+                    class="btn-large grey darken-3 col s12 m12 l12
+                    waves-effect waves-light tooltipped" 
+                    data-position="top" 
+                    data-tooltip="Cancel"
+                    style="border:none; background: none; cursor:pointer;"
+                    onclick="window.location.href='{% url 'Ads:all' %}';return false;">
+                    <i class="material-icons left">cancel</i>
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
 <!-- https://stackoverflow.com/questions/2472422/django-file-upload-size-limit -->
 <script>
     $("#upload_form").submit(function () {
-        console.log('Checking file size');
-        if (window.File && window.FileReader && window.FileList && window.Blob) {
+        if (window.File && window.FileReader && window.FileList && window.Blob){
             var file = $('#id_{{ form.upload_field_name }}')[0].files[0];
             if (file && file.size > {{ form.max_upload_limit }} ) {
-        alert("File " + file.name + " of type " + file.type + " must be < {{ form.max_upload_limit_text }}");
-        return false;
+            alert("File " + file.name + " of type " + file.type + " must be < {{ form.max_upload_limit_text }}");
+            return false;
+        }
     }
-  }
 });
 </script>
 {% endblock %}

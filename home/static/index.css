@@ -76,3 +76,7 @@ label{
         width:100%;
     }
 }
+
+input{
+  border-bottom: 10px solid black;
+}
