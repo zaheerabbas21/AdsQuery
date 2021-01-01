@@ -79,13 +79,30 @@
                     </p>
                 </div>
             </div>
+            {% if ad.owner.email %}
             <div class="row">
-                <div class="left col s12 m12 l6 center">
-                    <p class="btn-large disabled custom-disabled custom-media" style="background-color:#64b5f6 !important; color: white !important; text-transform: None;">
+                <div class="left col s12 m12 l6">
+                    <p class="btn-large disabled left custom-media" style="background-color:#64b5f6 !important; color: white !important; text-transform: None;">
                         Posted By: {{ ad.owner|capfirst }}
                     </p>
                 </div>
+                <div class="left col s12 m12 l6">
+                    <p class="btn-large disabled right custom-media"
+                    style="background-color:#64b5f6 !important; color: white !important; text-transform: None;">
+                    {{ ad.owner.email }}
+                    </p>
+                </div>
             </div>
+            {% else %}
+            <div class="row">
+                <div class="left col s12 m12 l6 center">
+                    <p class="btn-large disabled custom-media"
+                        style="background-color:#64b5f6 !important; color: white !important; text-transform: None;">
+                        Posted By: {{ ad.owner }}
+                    </p>
+                </div>
+            </div>
+            {% endif %}
         </div>
     </div>
 </div>
@@ -103,7 +120,10 @@
             <div class="row">
                 <div class="col s12 m12 l6">
                     <button 
-                            class="btn left grey darken-3 white-text col s12 m12 l12 waves-effect waves-light"
+                            class="btn left grey darken-3 white-text col s12 
+                            m12 l12 waves-effect waves-light tooltipped" 
+                            data-position="top" 
+                            data-tooltip="Go To Home Page"
                             style="border:none; background: none; cursor: pointer;" type="submit" value="All Ads"
                             onclick="window.location.href='{% url 'Ads:all' %}';return false;">
                             <i class="material-icons left">home</i>
@@ -113,7 +133,9 @@
                 <div class="col s12 m12 l6">
                     <button 
                             class="btn left grey darken-3 white-text col 
-                            s12 m12 l12 waves-effect waves-light"
+                            s12 m12 l12 waves-effect waves-light tooltipped" 
+                            data-position="top" 
+                            data-tooltip="Add a Comment if interested"
                             style="border:none; background: none; cursor: pointer;" 
                             type="submit" value="Submit">
                             Comment
@@ -126,14 +148,40 @@
     {% endif %}
 </div>
 
+<!-- Current Comments Section -->
+{% if comments %}
 <div>
-{% for comment in comments %}
-<p> {{ comment.text }}
-    ({{ comment.updated_at|naturaltime }})
-    {% if user == comment.owner %}
-    <a href="{% url 'Ads:ad_comment_delete' comment.id %}"><i class="fa fa-trash"></i></a>
-    {% endif %}
-</p>
-{% endfor %}
+    <ul class="collection">
+    {% for comment in comments %}
+        <li class="collection-item avatar">
+            <a  class="tooltipped" 
+                data-position="top" data-tooltip="{{ comment.owner }}">
+                <i class="material-icons circle blue darken-2">person</i>
+            </a>
+            <span class="title">{{ comment.text }}</span>
+            <blockquote 
+                class="grey-text" 
+                style="border-left:2px solid #949494">
+                Comment From <span class="grey-text text-darken-2">{{comment.owner}}</span> 
+                {{ comment.updated_at|naturaltime }}
+            </blockquote>
+            {% if user == comment.owner %}
+                <a  href="{% url 'Ads:ad_comment_delete' comment.id %}"
+                    class="secondary-content tooltipped" 
+                    data-position="top" data-tooltip="Delete">
+                    <i class="material-icons red-text">delete</i>
+                </a>
+            {% endif %}
+        </li>
+    {% endfor %}
+    </ul>
 </div>
+{% else %}
+<div>
+    <ul class="collection with-header">
+        <li class="collection-header center">No Comments Yet</li>
+    </ul>
+</div>
+{% endif %}
+
 {% endblock %}

@@ -67,3 +67,12 @@ label{
   padding-right: 2vw;
 }
 
+.custom-a{
+  color:blue;
+}
+
+@media screen and (max-width: 750px){
+    .custom-media{
+        width:100%;
+    }
+}
