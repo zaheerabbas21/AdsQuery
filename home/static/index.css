@@ -37,3 +37,33 @@ a:hover{
 .custom-margin-paginate{
   margin-top: 20px;
 }
+
+.custom-bottom-margin{
+  margin-bottom: 4vw;
+}
+
+.custom-top-margin{
+  margin-top: 2vw;
+}
+
+.custom-margin{
+  margin-top: 4vh;
+  margin-bottom: 4vh;
+}
+
+label{
+  color:black !important;
+  font-size: inherit;
+}
+
+.asteriskField {
+    display: none;
+}
+
+.custom-padding{
+  padding-top: 2vh;
+  padding-bottom: 2vh;
+  padding-left: 2vw;
+  padding-right: 2vw;
+}
+

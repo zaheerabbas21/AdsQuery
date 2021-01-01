@@ -5,12 +5,11 @@
     <nav class="navbar-wrapper white black-text">
         <div class="container">
             <a  href="/"
-                style="margin-left: 20px;" 
                 class="brand-logo">
                 {{ settings.APP_NAME }}
             </a>
             <a  href="/" 
-                data-target="mobile-demo" 
+                data-target="mobile-menu" 
                 class="sidenav-trigger">
                 <i class="material-icons black-text">menu</i>
             </a>
@@ -49,7 +48,12 @@
                     <ul  
                         id='dropdown1' 
                         class='dropdown-content'>
-                        <li class="disabled"></li>
+                        <li class="disabled">
+                            <a class="disabled">
+                               {{ user }}
+                            </a>
+                        </li>
+                        <li class="divider"></li>
                         <li>
                             <a 
                             href="{% url 'logout' %}?next={% url 'Ads:all' %}" 
@@ -68,7 +72,7 @@
         </div>
     </nav>
 </div>
-<ul class="sidenav" id="mobile-demo">
+<ul class="sidenav" id="mobile-menu">
     {% url 'Ads' as Ads %}
     <li {% if request.get_full_path == Ads %}class="active" {% endif %}>
         <a href="{% url 'Ads:all' %}">Ads</a>
@@ -85,9 +89,14 @@
             <i class="material-icons right">arrow_drop_down</i>
         </a>
         <ul 
-            id='dropdown2' 
-            class='dropdown-content'>
-            <li class="disabled"></li>
+            id="dropdown2" 
+            class="dropdown-content">
+            <li class="disabled">
+                <a class="disabled">
+                    {{ user }}
+                </a>
+            </li>
+            <li class="divider"></li>
             <li>
                 <a  href="{% url 'logout' %}?next={% url 'Ads:all' %}"
                     class="black-text">
@@ -104,5 +113,3 @@
 </ul>
 
 {% endblock %}
-
-<!-- https://stackoverflow.com/questions/22047251/django-dynamically-get-view-url-and-check-if-its-the-current-page -->
