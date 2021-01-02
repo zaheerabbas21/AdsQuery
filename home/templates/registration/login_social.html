@@ -28,13 +28,38 @@
 
     {% if settings.SOCIAL_AUTH_GITHUB_KEY %}
     <div class="center custom-margin">
-        <a class="btn-large blue lighten-2" href="{% url 'social:begin' 'github' %}?next={{ next }}">
+        <a  class="btn-large blue lighten-2" 
+            href="{% url 'social:begin' 'google-oauth2' %}?next={{ next }}">
+            <i class="fa fa-google left" aria-hidden="true"></i>
+            Google
+        </a>
+    </div>
+
+    <div class="center custom-margin">
+        <a  class="btn-large blue lighten-2" 
+            href="{% url 'social:begin' 'github' %}?next={{ next }}">
             <i class="fa fa-github left" aria-hidden="true"></i>
             GitHub
         </a>
-        {% endif %}
     </div>
     
+    <div class="center custom-margin">
+        <a  class="btn-large blue lighten-2" 
+            href="{% url 'social:begin' 'twitter' %}?next={{ next }}">
+            <i class="fa fa-twitter left" aria-hidden="true"></i>
+            Twitter
+        </a>
+    </div>
+
+    <div class="center custom-margin">
+        <a  class="btn-large blue lighten-2" 
+            href="{% url 'social:begin' 'facebook' %}?next={{ next }}">
+            <i class="fa fa-facebook left" aria-hidden="true"></i>
+            Facebook
+        </a>
+    </div>
+    {% endif %}
+
     <div class="divider custom-margin"></div>
 
     <h5 class="center custom-margin">
