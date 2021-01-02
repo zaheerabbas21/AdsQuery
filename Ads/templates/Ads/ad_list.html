@@ -1,5 +1,15 @@
 {% extends "base_menu.html" %}
 {% load static %}
+
+{% block head %}
+<style>
+    .custom-div {
+        margin: 30%;
+    }
+</style>
+{% endblock %}
+
+
 {% block content %}
 <div style="margin-top: 20px;" >
     <form autocomplete="off" class="row">
@@ -33,42 +43,13 @@
 
 <h2 style="text-align: center;color: rgb(59, 57, 57)">Featured Ads</h2>
 
+{% if ad_list %}
 <div class="row">
-    {% if ad_list %}
     <ul style="width: 100%;">
         {% for ad in ad_list %}
         <li>
             <div class="col s12 m12 l6">
                 <div class="card">
-                    <!-- <div  class="card-image responsive-img">
-                        <img style="max-height: 50%;"src="{% url 'Ads:ad_picture' ad.id %}" alt="{{ ad.title }}"/>
-                        <div class="center" style="margin:15px 10px 0 10px">
-                            {% if user.is_authenticated %} -->
-                            <!-- Remove from Favorites -->
-                            <!-- <a  href="#" class="halfway-fab btn-floating red btn-small z-depth-2"
-                                onclick="favPost('{% url   'Ads:ad_unfavorite'   ad.id %}', {{ ad.id }} );return false;" 
-                                {% if ad.id not in favorites %} 
-                                    style="display: none;" 
-                                    {% endif %} 
-                                    id="favorite_star_{{ad.id}}">
-                                <i class="material-icons white-text">
-                                    favorite
-                                </i>
-                            </a> -->
-                            <!-- Add to Favorites -->
-                            <!-- <a  href="#" class="halfway-fab btn-floating red btn-small z-depth-2"
-                                onclick="favPost('{% url     'Ads:ad_favorite'   ad.id %}', {{ ad.id }} );return false;" 
-                                {% if ad.id in favorites %} 
-                                    style="display: none;" 
-                                {% endif %} 
-                                id="unfavorite_star_{{ad.id}}">
-                                <i class="material-icons white-text">
-                                    favorite_border
-                                </i>
-                            </a>
-                            {% endif%}
-                        </div>
-                    </div> -->
                     <div class="card-content">
                         <a href="{% url 'Ads:ad_detail'  ad.id %}">
                             <span class="card-title">{{ ad.title }}</span>
@@ -85,56 +66,56 @@
                         </p>
                         <div class="card-action">
                         {% if ad.owner == user %}
-                            <a  href="{% url 'Ads:ad_update' ad.id %}" 
-                                class="btn-small orange">
-                                <span>Edit</span>
-                                <i class="material-icons right">edit</i>
-                            </a> 
-                            <a  href="{% url 'Ads:ad_delete' ad.id %}" 
-                                class="btn-small red right">
-                                <span>Delete</span>
-                                <i class="material-icons left">delete</i>
-                            </a>
-                        {% else %}
-                            <a  href="{% url 'Ads:ad_update' ad.id %}" 
-                                class="btn-small orange disabled">
-                                <span>Edit</span>
-                                <i class="material-icons right">edit</i>
-                            </a>
-                            <a  href="{% url 'Ads:ad_delete' ad.id %}" 
-                                class="btn-small red disabled right">
-                                <span>Delete</span>
-                                <i class="material-icons left">delete</i>
-                            </a>
-                        {% endif %}
-                        <div class="center" style="margin:15px 10px 0 10px">
-                        {% if user.is_authenticated %}
-                            <!-- Remove from Favorites -->
-                            <a  href="#" 
-                                class="btn-floating red btn-small z-depth-2"
-                                onclick="favPost('{% url   'Ads:ad_unfavorite'   ad.id %}', {{ ad.id }} );return false;" 
-                                {% if ad.id not in favorites %}         
-                                    style="display: none;" 
-                                {% endif %} 
-                                id="favorite_star_{{ad.id}}">
-                                <i class="material-icons white-text">
-                                    favorite
-                                </i>
-                            </a>
-                            <!-- Add to Favorites -->
-                            <a  href="#" 
-                                class="btn-floating red btn-small z-depth-2"
-                                onclick="favPost('{% url     'Ads:ad_favorite'   ad.id %}', {{ ad.id }} );return false;" 
-                                {% if ad.id in favorites %} 
-                                    style="display: none;" 
-                                {% endif %} 
-                                id="unfavorite_star_{{ad.id}}">
-                                <i class="material-icons white-text">
-                                    favorite_border
-                                </i>
-                            </a>
-                        {% endif%}
-                        </div>
+                                <a  href="{% url 'Ads:ad_update' ad.id %}" 
+                                    class="btn-small orange">
+                                    <span>Edit</span>
+                                    <i class="material-icons right">edit</i>
+                                </a> 
+                                <a  href="{% url 'Ads:ad_delete' ad.id %}" 
+                                    class="btn-small red right">
+                                    <span>Delete</span>
+                                    <i class="material-icons left">delete</i>
+                                </a>
+                            {% else %}
+                                <a  href="{% url 'Ads:ad_update' ad.id %}" 
+                                    class="btn-small orange disabled">
+                                    <span>Edit</span>
+                                    <i class="material-icons right">edit</i>
+                                </a>
+                                <a  href="{% url 'Ads:ad_delete' ad.id %}" 
+                                    class="btn-small red disabled right">
+                                    <span>Delete</span>
+                                    <i class="material-icons left">delete</i>
+                                </a>
+                            {% endif %}
+                            <div class="center" style="margin:15px 10px 0 10px">
+                            {% if user.is_authenticated %}
+                                <!-- Remove from Favorites -->
+                                <a  href="#" 
+                                    class="btn-floating red btn-small z-depth-2"
+                                    onclick="favPost('{% url   'Ads:ad_unfavorite'   ad.id %}', {{ ad.id }} );return false;" 
+                                    {% if ad.id not in favorites %}         
+                                        style="display: none;" 
+                                    {% endif %} 
+                                    id="favorite_star_{{ad.id}}">
+                                    <i class="material-icons white-text">
+                                        favorite
+                                    </i>
+                                </a>
+                                <!-- Add to Favorites -->
+                                <a  href="#" 
+                                    class="btn-floating red btn-small z-depth-2"
+                                    onclick="favPost('{% url     'Ads:ad_favorite'   ad.id %}', {{ ad.id }} );return false;" 
+                                    {% if ad.id in favorites %} 
+                                        style="display: none;" 
+                                    {% endif %} 
+                                    id="unfavorite_star_{{ad.id}}">
+                                    <i class="material-icons white-text">
+                                        favorite_border
+                                    </i>
+                                </a>
+                            {% endif%}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -144,12 +125,15 @@
     </ul>
 </div>
 {% else %}
-<div>
-    <h4 style="text-align: center;color: rgb(59, 57, 57)">
+<div class="center-align">
+    <h5 class="black-text">
         There are no articles in the database.
-    </h4>
-<div>
+    </h5>
+    <div class="custom-div"></div>
+</div>
 {% endif %}
+
+
 <div class="row">
     <a  href="{% url 'Ads:ad_create' %}"
         class="btn-large  blue lighten-2 center white-text waves-effect waves-light col s12 m12 l5"
@@ -183,7 +167,7 @@
 
 {% block pagination %}
 {% if ad_list.has_other_pages %}
-<div class="middle ">
+<div class="middle">
     <ul class="pagination custom-margin-paginate">
         <li>
             {% if ad_list.has_previous %}
