@@ -6,6 +6,12 @@
     .custom-div {
         margin: 30%;
     }
+    @media screen and (max-width: 376px){
+        .custom-res{
+            width: 100%;
+            margin:  2vh 0;
+        }
+    }
 </style>
 {% endblock %}
 
@@ -67,23 +73,23 @@
                         <div class="card-action">
                         {% if ad.owner == user %}
                                 <a  href="{% url 'Ads:ad_update' ad.id %}" 
-                                    class="btn-small orange">
+                                    class="btn-small orange custom-res">
                                     <span>Edit</span>
                                     <i class="material-icons right">edit</i>
                                 </a> 
                                 <a  href="{% url 'Ads:ad_delete' ad.id %}" 
-                                    class="btn-small red right">
+                                    class="btn-small red right custom-res">
                                     <span>Delete</span>
                                     <i class="material-icons left">delete</i>
                                 </a>
                             {% else %}
                                 <a  href="{% url 'Ads:ad_update' ad.id %}" 
-                                    class="btn-small orange disabled">
+                                    class="btn-small orange disabled custom-res">
                                     <span>Edit</span>
                                     <i class="material-icons right">edit</i>
                                 </a>
                                 <a  href="{% url 'Ads:ad_delete' ad.id %}" 
-                                    class="btn-small red disabled right">
+                                    class="btn-small red disabled right custom-res">
                                     <span>Delete</span>
                                     <i class="material-icons left">delete</i>
                                 </a>
