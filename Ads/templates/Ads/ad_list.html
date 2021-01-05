@@ -133,7 +133,13 @@
 {% else %}
 <div class="center-align">
     <h5 class="black-text">
-        There are no articles in the database.
+        Your Search did not Match Any of the Ads 
+        <div class="center"
+            style="margin: 30px;">
+            <a href="{% url 'Ads:all' %}" class="btn-large blue lighten-2 white-text waves-effect waves-light custom-font">
+                Go Back
+            </a>
+        </div>
     </h5>
     <div class="custom-div"></div>
 </div>
