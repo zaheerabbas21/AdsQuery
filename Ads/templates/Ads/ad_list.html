@@ -55,7 +55,7 @@
         {% for ad in ad_list %}
         <li>
             <div class="col s12 m12 l6">
-                <div class="card">
+                <div class="card hoverable pointer">
                     <div class="card-content">
                         <a href="{% url 'Ads:ad_detail'  ad.id %}">
                             <span class="card-title">{{ ad.title }}</span>

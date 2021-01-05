@@ -75,6 +75,9 @@ label{
     .custom-media{
         width:100%;
     }
+    .custom-font{
+      font-size: 10px;
+    }
 }
 
 input{

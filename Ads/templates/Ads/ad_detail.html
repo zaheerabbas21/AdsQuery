@@ -8,6 +8,10 @@
         .custom-media{
             width:100%;
         }
+        .custom-font{
+            font-size: 12px;
+            text-align: left;
+        }
     }
 </style>
 {% endblock %}
@@ -67,13 +71,13 @@
         <div class="card-action">
             <div class="row">
                 <div class="left col s12 m12 l6">
-                    <p  class="btn-large  disabled custom-disabled left custom-media"
+                    <p  class="btn-large  disabled custom-disabled left custom-media custom-font"
                         style="background-color:#64b5f6 !important; color: white !important; text-transform: None;">
                         Price: ₹{{ad.price}}
                     </p>
                 </div>
                 <div class="right col s12 m12 l6">
-                <p  class="btn-large disabled right custom-media" 
+                <p  class="btn-large disabled right custom-media custom-font" 
                         style="background-color:#64b5f6 !important; color: white !important; text-transform: None;">
                         Category: {{ ad.category.get_name_display }}
                     </p>
@@ -82,12 +86,12 @@
             {% if ad.owner.email %}
             <div class="row">
                 <div class="left col s12 m12 l6">
-                    <p class="btn-large disabled left custom-media" style="background-color:#64b5f6 !important; color: white !important; text-transform: None;">
-                        Posted By: {{ ad.owner|capfirst }}
+                    <p class="btn-large disabled left custom-media custom-font" style="background-color:#64b5f6 !important; color: white !important; text-transform: None;">
+                        From: {{ ad.owner|capfirst|truncatechars:15 }}
                     </p>
                 </div>
                 <div class="left col s12 m12 l6">
-                    <p class="btn-large disabled right custom-media"
+                    <p class="btn-large disabled right custom-media custom-font"
                     style="background-color:#64b5f6 !important; color: white !important; text-transform: None;">
                         {{ ad.owner.email }}
                     </p>
@@ -149,7 +153,7 @@
 <div>
     <ul class="collection">
     {% for comment in comments %}
-        <li class="collection-item avatar">
+        <li class="collection-item avatar hoverable">
             <a  class="tooltipped" 
                 data-position="top" data-tooltip="{{ comment.owner }}">
                 <i class="material-icons circle blue darken-2">person</i>
