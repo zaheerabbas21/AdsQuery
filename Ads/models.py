@@ -19,7 +19,7 @@ class Category(models.Model):
         max_length=128, choices=CATEGORY_CHOICES, default=OTHER)
 
     def __str__(self):
-        return self.name
+        return self.get_name_display()
 
 
 class Ad(models.Model):
@@ -36,10 +36,10 @@ class Ad(models.Model):
         settings.AUTH_USER_MODEL, through='Comment', related_name='comments_owned')
     category = models.ForeignKey(
         Category, help_text="Choose a category: \
-            H -> House,\
-            J -> Job,\
-            S -> Sale,\
-            O -> Other", on_delete=models.SET_NULL, null=True)
+            House,\
+            Job,\
+            Sale,\
+            Other", on_delete=models.SET_NULL, null=True)
     picture = models.BinaryField(null=True, editable=True)
     content_type = models.CharField(
         max_length=256, null=True, help_text='The MIMEType of the file')
