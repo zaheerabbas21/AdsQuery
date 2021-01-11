@@ -58,7 +58,9 @@
                 <div class="card hoverable pointer">
                     <div class="card-content">
                         <a href="{% url 'Ads:ad_detail'  ad.id %}">
-                            <span class="card-title">{{ ad.title }}</span>
+                            <span class="card-title">
+                                {{ ad.title | truncatechars:32 }}
+                            </span>
                         </a>
                         <p style="margin:10px 0px">
                             {{ ad.text|truncatewords:20 }}
