@@ -8,3 +8,6 @@ I will soon add contributing guidelines, if you are interested then you can
 contribute to this project.
 
 Design Document: [Click Here](https://docs.google.com/document/d/1_yC6jbTiLdDJ4NZzBMGIoTk89NVp31DQX85guvLpu4A/edit?usp=sharing)
+
+If you like the project, give it a start. I would appreciate it. And Hey, thanks for
+cheking out the project.
