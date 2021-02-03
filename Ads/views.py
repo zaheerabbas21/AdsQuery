@@ -40,7 +40,7 @@ class AdListView(OwnerListView):
         for ad in ad_list:
             ad.natural_updated = naturaltime(ad.updated_at)
 
-        # Pagination        
+        # Pagination
         paginator = Paginator(ad_list, 10)
         ad_list = paginator.page(page)
 
